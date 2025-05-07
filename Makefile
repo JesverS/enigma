@@ -1,46 +1,27 @@
-# Compilateur
-CC = gcc
+all: enigma bruteforce
 
-# Options de compilation
-CFLAGS = -std=c11 -Wall -Wextra
+enigma: enigma.o enigma_rotor.o
+	gcc -std=c11 -Wall -Wextra -o enigma enigma.o enigma_rotor.o
 
-# Noms des exécutables
-TARGET_ENIGMA = enigma
-TARGET_BRUTEFORCE = bruteforce
+bruteforce: bute_force.o enigma_rotor.o
+	gcc -std=c11 -Wall -Wextra -o bruteforce bute_force.o enigma_rotor.o
 
-# Fichiers sources pour chaque exécutable
-SRCS_ENIGMA = wiring.c enigma_rotor.c
-SRCS_BRUTEFORCE = bute_force.c enigma_rotor.c
+enigma.o: enigma.c
+	gcc -std=c11 -Wall -Wextra -c enigma.c -o enigma.o
 
-# Fichiers objets pour chaque exécutable
-OBJS_ENIGMA = $(SRCS_ENIGMA:.c=.o)
-OBJS_BRUTEFORCE = $(SRCS_BRUTEFORCE:.c=.o)
+enigma_rotor.o: enigma_rotor.c
+	gcc -std=c11 -Wall -Wextra -c enigma_rotor.c -o enigma_rotor.o
 
-# Règle par défaut
-all: $(TARGET_ENIGMA) $(TARGET_BRUTEFORCE)
+bute_force.o: bute_force.c
+	gcc -std=c11 -Wall -Wextra -c bute_force.c -o bute_force.o
 
-# Règle pour créer l'exécutable enigma
-$(TARGET_ENIGMA): $(OBJS_ENIGMA)
-	$(CC) $(CFLAGS) -o $(TARGET_ENIGMA) $(OBJS_ENIGMA)
-
-# Règle pour créer l'exécutable bruteforce
-$(TARGET_BRUTEFORCE): $(OBJS_BRUTEFORCE)
-	$(CC) $(CFLAGS) -o $(TARGET_BRUTEFORCE) $(OBJS_BRUTEFORCE)
-
-# Règle pour compiler les fichiers objets
-%.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
-
-# Règle pour nettoyer les fichiers générés
 clean:
-	rm -f $(OBJS_ENIGMA) $(OBJS_BRUTEFORCE) $(TARGET_ENIGMA) $(TARGET_BRUTEFORCE)
+	rm -f enigma.o enigma_rotor.o bute_force.o enigma bruteforce
 
-# Règle pour exécuter le programme enigma
-run-enigma: $(TARGET_ENIGMA)
-	./$(TARGET_ENIGMA)
+run-enigma: enigma
+	./enigma
 
-# Règle pour exécuter le programme bruteforce
-run-bruteforce: $(TARGET_BRUTEFORCE)
-	./$(TARGET_BRUTEFORCE)
+run-bruteforce: bruteforce
+	./bruteforce
 
 .PHONY: all clean run-enigma run-bruteforce
