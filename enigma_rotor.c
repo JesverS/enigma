@@ -1,6 +1,7 @@
 #include "enigma_rotor.h"
 
 
+
 Rotor* init_rotor(int num_rotor, char lettre){
 	char buff[40]; //buffer de la taille d'une ligne dans le fichier rotor_ukw_enigma1.txt
 	char buff2[28]; //buffer pour stocker l'alphabet réarranger
@@ -91,7 +92,7 @@ int trouver_lettre(char* AlphabetM, char l,int pos){
 			return i;
 		}
 	}
-	return -1;
+	return 0;
 }
 
 int trouver_lettre_bis(char* AlphabetM, char l,int pos){
@@ -120,7 +121,7 @@ char resultat_rf(char c, RotorsReflector* rf){
 		printf("%c -> ", c);
 		position_lettre = ((int)(c-'A') + l_r[i]->pos ) % 26;
         	c = l_r[i]->value[position_lettre];
-        	c =(c - l_r[i]->pos -'A'+26)%26 +'A';
+        	c =(c - l_r[i]->pos -'A'+52)%26 +'A';
  
 	}
 	printf("%c -> ", c);
@@ -203,3 +204,36 @@ RotorsReflector* modifier_rf(RotorsReflector* rf,int* nums_rotors, char* lettres
 	printf("%s \n",rf->reflector);
 	return rf;
 }
+/*
+int main(){
+	//init_rotor(3,'A');
+	int tab[] = {1,1,1};
+	int tab2[] = {3,3,3};
+	char c;
+	RotorsReflector* rf = init_rotorsreflector(tab,"AAA", 'C',3);
+	RotorsReflector* rf2 = init_rotorsreflector(tab2,"AAA", 'C',3);
+	c = resultat_rf('O',rf);
+	printf("%c \n", c);
+	c = resultat_rf('P',rf);
+	printf("%c \n", c);
+	c = resultat_rf('E',rf);
+	printf("%c \n", c);
+	c = resultat_rf('R',rf);
+	printf("%c \n", c);
+	c = resultat_rf('A',rf);
+	printf("%c \n", c);
+	rf = modifier_rf(rf2,tab,"AAA", 'C',3);
+	c = resultat_rf('R',rf);
+	printf("%c \n", c);
+	c = resultat_rf('H',rf);
+	printf("%c \n", c);
+	c = resultat_rf('L',rf);
+	printf("%c \n", c);
+	c = resultat_rf('H',rf);
+	printf("%c \n", c);
+	c = resultat_rf('O',rf);
+	printf("%c \n", c);
+	printf("%d \n",rf->l_r[1]->pos);
+	liberer_rf(rf);
+	return 0;
+}*/
