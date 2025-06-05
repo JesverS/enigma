@@ -34,26 +34,26 @@ char* enigma_dechiffrer(const char *message, RotorsReflector* rotors_reflector) 
 
 void brute_force_enigma(const char *message_chiffre) {
     char *message_dechiffre;
-    int rotor[3];
-    char position[3];
-    char c;
-    RotorsReflector *rf = NULL;
-    for (rotor[0] = 1; rotor[0] <= 5; rotor[0]++) { 
-        for (rotor[1] = 1; rotor[1] <= 5; rotor[1]++) {
-            for (rotor[2] = 1; rotor[2] <= 5; rotor[2]++) {
-                for (position[0] = 'A'; position[0] <= 'Z'; position[0]++) {
-                    for (position[1] = 'A'; position[1] <= 'Z'; position[1]++) {
-                        for (position[2] = 'A'; position[2] <= 'Z'; position[2]++) {
-                            for(c = 'A'; c <= 'C'; c++){
-                                
-                                // Créer une nouvelle configuration de rotors
-                                if(rf == NULL){
-                                    rf = init_rotorsreflector(rotor, position, c, 3);
-                                }else{
-                                   // printf("Reinitialisation des rotors\n");
-                                    rf = modifier_rf(rf, rotor, position, c, 3);
-                                }
-                               
+
+    int tab[] = {1,1,1};
+	char* pos = strdup("AAA");
+	char reflector = 'A';
+	RotorsReflector* rf = init_rotorsreflector(tab, pos,reflector,3);
+	for(int reflect=0; reflect<3;reflect++){
+		reflector = 'A'+reflect;
+		for(int rotor3 = 1; rotor3<=5;rotor3++){
+			tab[2] = rotor3;
+			for(int rotor2 = 1; rotor2<=5;rotor2++){
+				tab[1] = rotor2;
+				for(int rotor1 = 1; rotor1<=5;rotor1++){
+					tab[0] = rotor1;
+					for(int pos3 = 'A'; pos3<'A'+27;pos3++){
+                        pos[2] = pos3;
+						for(int pos2 = 'A' ; pos2 <'A'+27;pos2++){
+                            pos[1] = pos2;
+							for(int pos1 = 'A' ; pos1<'A'+27;pos1++){
+                                pos[0] = pos1;
+                                rf = modifier_rf(rf,tab,pos,reflector,3);
                                 if (rf == NULL) {
                                     printf("Erreur lors de l'initialisation des rotors.\n");
                                     continue;
@@ -62,38 +62,48 @@ void brute_force_enigma(const char *message_chiffre) {
                                 // Déchiffrer le message avec cette configuration
                                 message_dechiffre = enigma_dechiffrer(message_chiffre, rf);
 
-                                printf("Rotors: %d %d %d | Positions: %c %c %c | Reflector %c\n", 
-                                    rotor[0], rotor[1], rotor[2], position[0], position[1], position[2], c);
+                                rf = modifier_rf(rf,tab,pos,reflector,3);
+                               
                                 printf("Message chiffré: %s\n", message_chiffre);
                                 printf("Message déchiffré: %s\n", message_dechiffre);
-                                
+                                printf("Rotors: %d %d %d | Positions: %c %c %c | Reflector %c\n", 
+                                    rotor1, rotor2, rotor3, pos[0], pos[1], pos[2], reflector);
+								rf = modifier_rf(rf,tab,pos,reflector,3);
+
+                                if(pos[0] == 'I' && pos[1] == 'O' && pos[2] == 'P') {
+                                    //return;
+                                }
                                 printf("\n\n");
                                 // Vérifie si le résultat est valide
                                 if (verification_dictionnaire(message_dechiffre) >= 2) {
                                     printf("Configuration trouvée !\n");
                                     printf("Rotors: %d %d %d | Positions: %c %c %c | Reflector %c\n", 
-                                        rotor[0], rotor[1], rotor[2], position[0], position[1], position[2], c);
+                                        rotor1, rotor2, rotor3, (pos1), (pos2), (pos3), reflector);
                                     printf("Message chiffré: %s\n", message_chiffre);
                                     printf("Message déchiffré: %s\n", message_dechiffre);
                                     
                                     return;
                                 }
                                 free(message_dechiffre);
-                            }
-                            return;
-                        }
-                    }
-                }
-            }
-        }
-        printf("Configuration %d %d %d non valide\n", rotor[0], rotor[1], rotor[2]);
-    } 
+							}
+						}			
+					}
+				}
+			}
+		}
+
+	}
+
     printf("Aucune configuration correcte trouvée \n");
 }
 
 int main(){
     // Exemple de message chiffré 
     // UNITEOPERATIONSTRATEGIE
-    char *message = "RHLHOPYJWZHJTFARFNCPKRMAIOPFBIBFBFWQMIP";
+    char *message = "QRFSXXZEEFATXPWVBDLWCPZHNBJQKZOPJGRMOMB";
     brute_force_enigma(message);
 }
+
+// VDZJDMDLBOYYDNFSYXKAAMHUVLYVONJRGITHIKI
+// QRFSXXZEEFATXPWVBDLWCPZHNBJQKZOPJGRMOMB
+// HQNNTGHRWZSZFLPCFJHLXWYBRZTAPBLVETVDUGF
