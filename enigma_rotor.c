@@ -118,18 +118,18 @@ char resultat_rf(char c, RotorsReflector* rf){
 	}
 	
 	for(i=0; i<rf->taille;i++){
-		printf("%c -> ", c);
+	//	printf("%c -> ", c);
 		position_lettre = ((int)(c-'A') + l_r[i]->pos ) % 26;
         	c = l_r[i]->value[position_lettre];
         	c =(c - l_r[i]->pos -'A'+52)%26 +'A';
  
 	}
-	printf("%c -> ", c);
+	//printf("%c -> ", c);
 	position_lettre =( (int) (c -'A') )%26;
 	c = rf->reflector[position_lettre];
 	
 	for (i = rf->taille - 1; i >= 0; i--) {
-		printf("r %c -> ", c);
+	//	printf("r %c -> ", c);
 		v = (c + l_r[i]->pos -'A')%26 +'A';
        		position_lettre = trouver_lettre(l_r[i]->value ,v,0);
        		c = 'A' + (position_lettre - l_r[i]->pos + 26)%26 ; 
@@ -204,6 +204,21 @@ RotorsReflector* modifier_rf(RotorsReflector* rf,int* nums_rotors, char* lettres
 	printf("%s \n",rf->reflector);
 	return rf;
 }
+void affiche_rotor(RotorsReflector* rf){
+    printf("=== Configuration des rotors ===\n");
+    for (int i = 0; i < rf->taille; i++) {
+        Rotor* r = rf->l_r[i];
+        printf("Rotor %d :\n", i + 1);
+        printf("  Valeur   : %s\n", r->value);
+        printf("  Position : %d (%c)\n", r->pos, 'A' + r->pos);
+        printf("  Turnover : %c\n", r->turnover);
+    }
+
+    printf("\n=== Réflecteur ===\n");
+    printf("  Alphabet du réflecteur : %s\n", rf->reflector);
+    printf("===============================\n");
+}
+
 /*
 int main(){
 	//init_rotor(3,'A');
