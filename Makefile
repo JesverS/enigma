@@ -31,6 +31,6 @@ turing_version2.o: turing_version2.c turing.h enigma_rotor.h
 	gcc -Wall -c turing_version2.c -o turing_version2.o
 
 clean:
-	rm -f enigma.o enigma_rotor.o bute_force.o turing.o enigma bruteforce turing_version1 turing_version2 turing_version2.o
+	rm -f enigma.o enigma_rotor.o bute_force.o turing.o enigma bruteforce turing_version1 turing_version2 turing_version2.o find_crib turing_version1.o
 
 .PHONY: all clean run-enigma run-bruteforce run-turing

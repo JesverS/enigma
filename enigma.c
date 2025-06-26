@@ -21,9 +21,9 @@ RotorsReflector* initialisationRotor(){
     
     printf("Pour initialiser la machine, vous devez configurer plusieurs paramètres.\n\n");
     
-    printf("1. Sélection des rotors :\n");
-    printf("   - Vous devez choisir trois rotors parmi les cinq disponibles.\n");
-    printf("   - Les rotors sont numérotés de 1 à 5.\n");
+    printf("1. Sélection des retors :\n");
+    printf("   - Vous devez choisir trois retors parmi les cinq disponibles.\n");
+    printf("   - Les retors sont numérotés de 1 à 5.\n");
     printf("   - Vous sélectionnerez d'abord un rotor, puis vous indiquerez sa position de départ.\n");
     printf("   - La position de départ est une lettre majuscule entre A et Z.\n\n");
     
