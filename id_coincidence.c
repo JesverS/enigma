@@ -52,11 +52,11 @@ RotorsReflector* crackage(const char* messageC){
 	double idc;
 	for(int reflect=0; reflect<3;reflect++){
 		reflector = 'A'+reflect;
-		for(int rotor3 = 1; rotor3<=2;rotor3++){
+		for(int rotor3 = 1; rotor3<=5;rotor3++){
 			tab[2] = rotor3;
-			for(int rotor2 = 1; rotor2<=2;rotor2++){
+			for(int rotor2 = 1; rotor2<=5;rotor2++){
 				tab[1] = rotor2;
-				for(int rotor1 = 1; rotor1<=2;rotor1++){
+				for(int rotor1 = 1; rotor1<=5;rotor1++){
 					tab[0] = rotor1;
 					for(int pos3 = 'A'+1; pos3<'A'+28;pos3++){
 						for(int pos2 = 'A' +1 ; pos2 <'A'+28;pos2++){
@@ -97,3 +97,4 @@ int main(){
 	printf("%s\n",messagedechiffre(rf,message,strlen(message)));
 	return 0;
 }
+

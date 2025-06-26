@@ -6,7 +6,7 @@
 #include <string.h>
 #include <stdbool.h>
 
-#include "enigma_rotor.c"
+#include "enigma_rotor.h"
 
 #define taille_dico 20
 const char *dictionnaire[taille_dico] = {

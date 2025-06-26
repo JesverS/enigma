@@ -28,4 +28,4 @@ Rotor* init_rotor(int num_rotor, char premiere_lettre);
 int trouver_pos(char* AlphabetM, char l);
 char resultat_rf(char c, RotorsReflector* rf);
 RotorsReflector* modifier_rf(RotorsReflector* rf,int* nums_rotors, char* lettres_associes, char lettre_reflector,int taille);
-
+Rotor* modifier_rotor(Rotor* r,int num_rotor, char lettre);
