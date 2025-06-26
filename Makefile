@@ -2,7 +2,8 @@ all: enigma bruteforce turing_version1 turing_version2 find_crib
 
 enigma: enigma.o enigma_rotor.o
 	gcc -Wall -o enigma enigma.o enigma_rotor.o
-
+id_coincidence: id_coincidence.o enigma_rotor.o
+	gcc -Wall -c id_coincidence id_coincidence.o enigma_rotor.o
 bruteforce: bute_force.o enigma_rotor.o
 	gcc -Wall -o bruteforce bute_force.o enigma_rotor.o
 
@@ -30,6 +31,8 @@ turing_version1.o: turing_version1.c turing.h enigma_rotor.h
 turing_version2.o: turing_version2.c turing.h enigma_rotor.h
 	gcc -Wall -c turing_version2.c -o turing_version2.o
 
+id_coincidence.o: id_coincidence.c enigma.h enigma_rotor.h
+	gcc -Wall -c id_coincidence.c -o id_coincidence.o
 clean:
 	rm -f enigma.o enigma_rotor.o bute_force.o turing.o enigma bruteforce turing_version1 turing_version2 turing_version2.o find_crib turing_version1.o
 
